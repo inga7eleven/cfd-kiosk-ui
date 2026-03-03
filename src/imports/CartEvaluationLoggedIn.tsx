@@ -134,8 +134,14 @@ type TextPhase = 'promo' | 'success' | 'text';
 function Text({ phase, setPhase }: { phase: TextPhase; setPhase: (p: TextPhase) => void }) {
   useEffect(() => {
     if (phase !== 'success') return;
-    const timer = setTimeout(() => setPhase('text'), 4000);
-    return () => clearTimeout(timer);
+    const redirectTimer = setTimeout(() => {
+      window.open('https://www.figma.com/make/RXUtVyEEmlpkBqNbNOoEGg/Mobile-Text-Message?fullscreen=1&t=FYQNXfcUrK32myo3-1', '_blank');
+    }, 3000);
+    const phaseTimer = setTimeout(() => setPhase('text'), 4000);
+    return () => {
+      clearTimeout(redirectTimer);
+      clearTimeout(phaseTimer);
+    };
   }, [phase, setPhase]);
 
   return (
