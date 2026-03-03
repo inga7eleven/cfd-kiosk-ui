@@ -1,6 +1,9 @@
 import svgPaths from "./svg-xni6tg269e";
 import { CartItem } from '../app/App';
 import { TallyArea } from '../app/components/TallyArea';
+import { useState, useEffect } from 'react';
+import promoImage from "../assets/e0853718ed4e69f2964090d29e4609c88969e786.png";
+import imgSuccess from "../assets/0bb21899b446e5197592bdf3109e5abe998c6e5d.png";
 
 function Frame() {
   return (
@@ -126,21 +129,56 @@ function Component() {
   );
 }
 
-function Text() {
+type TextPhase = 'promo' | 'success' | 'text';
+
+function Text({ phase, setPhase }: { phase: TextPhase; setPhase: (p: TextPhase) => void }) {
+  useEffect(() => {
+    if (phase !== 'success') return;
+    const timer = setTimeout(() => setPhase('text'), 4000);
+    return () => clearTimeout(timer);
+  }, [phase, setPhase]);
+
   return (
-    <div className="-translate-y-1/2 absolute content-stretch flex flex-col font-['Roboto:Bold',sans-serif] font-bold gap-[30px] items-center justify-end left-[20px] text-center top-1/2 whitespace-pre-wrap" data-name="Text">
-      <div className="flex flex-col justify-end leading-[60px] relative shrink-0 text-[#008C48] text-[50px] w-[860px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="mb-0">WANT TO GET $1.79</p>
-        <p>OFF YOUR PURCHASE?</p>
-      </div>
-      <p className="leading-[40px] relative shrink-0 text-[#5b616b] text-[34px] tracking-[0.8px] w-[860px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        REDEEM 1,790 POINTS AND SAVE $1.79
-      </p>
+    <div
+      className="-translate-y-1/2 absolute flex items-center justify-center left-[93px] top-[310px] w-[807px] cursor-pointer"
+      data-name="Text"
+      onClick={() => { if (phase === 'promo') setPhase('success'); }}
+    >
+      {phase === 'text' ? (
+        <p className="font-['Roboto:Bold',sans-serif] font-bold text-[#2c2f35] text-[28px] text-center whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {`Want to get $1.79 off your purchase?\nRedeem 1,790 points and save $1.79`}
+        </p>
+       ) : (
+        <>
+          <img
+            src={promoImage}
+            alt="Want to get $1.79 off your purchase? Redeem 1,790 points and save $1.79"
+            className="max-h-full max-w-full object-contain"
+          />
+          {phase === 'success' && (
+            <img
+              src={imgSuccess}
+              alt="Discount applied successfully"
+              className="absolute left-0 right-0 bottom-0 top-[32px] max-h-full max-w-full object-contain"
+            />
+          )}
+        </>
+      )}
     </div>
   );
 }
 
-export default function CartEvaluationLoggedIn({ cartItems, onSaveDiscount, onPayFullPrice }: { cartItems: CartItem[], onSaveDiscount: () => void, onPayFullPrice: () => void }) {
+export default function CartEvaluationLoggedIn({
+  cartItems,
+  onSaveDiscount,
+  onPayFullPrice,
+}: {
+  cartItems: CartItem[];
+  onSaveDiscount: () => void;
+  onPayFullPrice: () => void;
+}) {
+  const [phase, setPhase] = useState<TextPhase>('promo');
+
   return (
     <div className="bg-white relative size-full" data-name="Cart Evaluation_logged in">
       <div className="absolute h-[198px] left-[380px] top-0 w-[900px]" data-name="Header">
@@ -165,28 +203,32 @@ export default function CartEvaluationLoggedIn({ cartItems, onSaveDiscount, onPa
         </div>
       </div>
       <div className="absolute bg-white h-[494px] left-[380px] top-[198px] w-[900px]" data-name="Discount Details">
-        <Text />
+        <Text phase={phase} setPhase={setPhase} />
       </div>
-      <div 
-        className="absolute h-[90px] left-[840px] top-[697px] w-[420px] cursor-pointer" 
-        data-name="Buttons"
-        onClick={onSaveDiscount}
-      >
-        <div className="absolute bg-[#008C48] border border-[rgba(255,255,255,0)] border-solid inset-0 rounded-[3px]" data-name="Button Container" />
-        <p className="absolute font-['Roboto:Bold',sans-serif] font-bold leading-[normal] left-[20px] right-[20px] text-[36px] text-center text-white top-[calc(50%-21px)] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-          SAVE $1.79
-        </p>
-      </div>
-      <div 
-        className="absolute h-[90px] left-[400px] top-[697px] w-[420px] cursor-pointer" 
-        data-name="Buttons"
-        onClick={onPayFullPrice}
-      >
-        <div className="absolute bg-white border border-[#5b616b] border-solid inset-0 rounded-[3px]" data-name="Button Container" />
-        <p className="absolute font-['Roboto:Bold',sans-serif] font-bold h-[42px] leading-[normal] left-[20px] right-[20px] text-[#5b616b] text-[36px] text-center top-[calc(50%-21px)] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-          PAY FULL PRICE
-        </p>
-      </div>
+      {phase === 'text' && (
+        <>
+          <div
+            className="absolute h-[90px] left-[840px] top-[697px] w-[420px] cursor-pointer"
+            data-name="Save Discount Button"
+            onClick={onSaveDiscount}
+          >
+            <div className="absolute bg-[#008C48] border border-[rgba(255,255,255,0)] border-solid inset-0 rounded-[3px]" data-name="Button Container" />
+            <p className="absolute font-['Roboto:Bold',sans-serif] font-bold leading-[normal] left-[20px] right-[20px] text-[36px] text-center text-white top-[calc(50%-21px)] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              SAVE $1.79
+            </p>
+          </div>
+          <div
+            className="absolute h-[90px] left-[400px] top-[697px] w-[420px] cursor-pointer"
+            data-name="Pay Full Price Button"
+            onClick={onPayFullPrice}
+          >
+            <div className="absolute bg-white border border-[#5b616b] border-solid inset-0 rounded-[3px]" data-name="Button Container" />
+            <p className="absolute font-['Roboto:Bold',sans-serif] font-bold h-[42px] leading-[normal] left-[20px] right-[20px] text-[#5b616b] text-[36px] text-center top-[calc(50%-21px)] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              PAY FULL PRICE
+            </p>
+          </div>
+        </>
+      )}
       <TallyArea cartItems={cartItems} showDiscount={false} />
     </div>
   );

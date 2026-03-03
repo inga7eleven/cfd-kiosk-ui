@@ -415,7 +415,7 @@ export default function EnterRewards({ cartItems, onContinue }: { cartItems: Car
           </div>
         </div>
       </div>
-      <div className="absolute h-[100px] left-[462px] top-[218px] w-[736px]" data-name="Input Field">
+      <div className="absolute h-[100px] left-[502px] top-[218px] w-[736px]" data-name="Input Field">
         <div className="absolute bg-white border border-[#9a9a9b] border-solid inset-0 rounded-[3px]" data-name="TF Container" />
         <p 
           className={`absolute font-['Roboto:Bold',sans-serif] font-bold leading-[40px] left-[20px] right-[20px] text-[48px] text-center top-[calc(50%-20px)] whitespace-pre-wrap ${

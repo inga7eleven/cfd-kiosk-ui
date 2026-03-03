@@ -30,11 +30,11 @@ export function TallyArea({ cartItems, showDiscount = false }: TallyAreaProps) {
       </div>
 
       {/* Scrollable items area */}
-      <div className="absolute left-0 top-[79px] w-[379px] h-[528px] overflow-y-auto">
+      <div className="absolute left-0 top-[79px] w-[475px] h-[528px] overflow-y-auto">
         {validItems.map((item, index) => (
           <div 
             key={item.id} 
-            className="h-[32px] w-[379px] relative" 
+            className="h-[32px] w-[475px] relative" 
             style={{ top: `${index * 32}px` }}
             data-name="Line Item - Regular"
           >
@@ -55,9 +55,9 @@ export function TallyArea({ cartItems, showDiscount = false }: TallyAreaProps) {
       </div>
 
       {/* Subtotal */}
-      <div className="absolute h-[31px] left-0 top-[607px] w-[379px]" data-name="Subtotal Line">
+      <div className="absolute h-[31px] left-0 top-[607px] w-[475px]" data-name="Subtotal Line">
         <div className="absolute bg-white inset-0" data-name="BG" />
-        <div className="absolute h-[23px] left-[263px] top-[5.81px] w-[116px]" data-name="Bottom Line - Tally">
+        <div className="absolute h-[23px] left-[359px] top-[5.81px] w-[116px]" data-name="Bottom Line - Tally">
           <p className="absolute font-['Roboto:Regular',sans-serif] inset-[0_27.59%_4.35%_0] leading-[normal] not-italic text-[#2c2f35] text-[19px] text-right whitespace-pre-wrap">${subtotal.toFixed(2)}</p>
         </div>
         <div className="absolute inset-[18.75%_32.72%_12.5%_4.22%]" data-name="Running Total Title">
@@ -67,9 +67,9 @@ export function TallyArea({ cartItems, showDiscount = false }: TallyAreaProps) {
 
       {/* Discount total */}
       {showDiscount && (
-        <div className="absolute h-[31px] left-0 top-[638px] w-[379px]" data-name="Discount Line">
+        <div className="absolute h-[31px] left-0 top-[638px] w-[475px]" data-name="Discount Line">
           <div className="absolute bg-white inset-0" data-name="BG" />
-          <div className="absolute h-[23px] left-[263px] top-[5.81px] w-[116px]" data-name="Bottom Line - Tally">
+          <div className="absolute h-[23px] left-[359px] top-[5.81px] w-[116px]" data-name="Bottom Line - Tally">
             <p className="absolute font-['Roboto:Regular',sans-serif] inset-[0_27.59%_4.35%_0] leading-[normal] not-italic text-[#EE1C25] text-[19px] text-right whitespace-pre-wrap">-${discount.toFixed(2)}</p>
           </div>
           <div className="absolute inset-[18.75%_32.72%_12.5%_4.22%]" data-name="Running Total Title">
@@ -79,9 +79,9 @@ export function TallyArea({ cartItems, showDiscount = false }: TallyAreaProps) {
       )}
 
       {/* Tax */}
-      <div className="absolute h-[31px] left-0 w-[379px]" style={{ top: `${taxTop}px` }} data-name="Tax Line">
+      <div className="absolute h-[31px] left-0 w-[475px]" style={{ top: `${taxTop}px` }} data-name="Tax Line">
         <div className="absolute bg-white inset-0" data-name="BG" />
-        <div className="absolute h-[23px] left-[263px] top-[5.81px] w-[116px]" data-name="Bottom Line - Tally">
+        <div className="absolute h-[23px] left-[359px] top-[5.81px] w-[116px]" data-name="Bottom Line - Tally">
           <p className="absolute font-['Roboto:Regular',sans-serif] inset-[0_27.59%_4.35%_0] leading-[normal] not-italic text-[#2c2f35] text-[19px] text-right whitespace-pre-wrap">${tax.toFixed(2)}</p>
         </div>
         <div className="absolute inset-[18.75%_32.72%_12.5%_4.22%]" data-name="Running Total Title">
@@ -90,10 +90,10 @@ export function TallyArea({ cartItems, showDiscount = false }: TallyAreaProps) {
       </div>
 
       {/* Final Total */}
-      <div className="absolute h-[100px] left-0 w-[379px]" style={{ top: `${totalTop}px` }} data-name="Final Total">
+      <div className="absolute h-[100px] left-0 w-[475px]" style={{ top: `${totalTop}px` }} data-name="Final Total">
         <div className="absolute bg-[#e9e9e9] inset-[10%_0_0_0]" data-name="BG" />
         <div className="absolute bg-white inset-[0_0_90%_0]" data-name="Spacer" />
-        <p className="absolute font-['Roboto:Bold',sans-serif] font-bold leading-[normal] right-[32px] text-[#2c2f35] text-[24px] text-right top-[41px] w-[107px] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <p className="absolute font-['Roboto:Bold',sans-serif] font-bold leading-[normal] left-[335px] text-[#2c2f35] text-[24px] text-right top-[41px] w-[107px] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
           ${total.toFixed(2)}
         </p>
         <p className="absolute font-['Roboto:Bold',sans-serif] font-bold inset-[41%_37.73%_31%_4.22%] leading-[normal] text-[#2c2f35] text-[24px] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
